@@ -1,0 +1,19 @@
+{
+  "name": "Chronos App Dev Container",
+  "dockerComposeFile": ["../docker-compose.yml"],
+  "service": "chronos-app",
+  "workspaceFolder": "/app",
+  "shutdownAction": "stopCompose",
+  "settings": {
+    "terminal.integrated.shell.linux": "/bin/sh"
+  },
+  "extensions": [
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode"
+  ],
+  "postCreateCommand": "npm install",
+  "remoteUser": "appuser"
+}
+
+//Dev Containers: Open Folder in Container
+//Dev Containers: Close Remote Connection

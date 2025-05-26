@@ -1,13 +1,12 @@
 import styles from './Heading.module.css'
 
-export function Heading() {
+export function Heading(props: any) {
 
-    const headingStyle = styles.heading;
-
+    const variasStrings = `${styles.back} ${styles.heading}`;
     return (
         <>
-            <div className={headingStyle}>
-                <h1>Olá mundo!</h1>
+            <div className={variasStrings}>
+                <h1>{props.children}</h1>
             </div>
         </>
     )

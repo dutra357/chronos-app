@@ -1,5 +1,3 @@
-import { useState } from 'react'
-
 import './styles/global.css'
 import './styles/theme.css'
 
@@ -10,8 +8,9 @@ function App() {
   return (
     <>
       <section>
-        <Heading />
-
+        <Heading attr1={123}>Olá mundo1!</Heading>
+        <Heading attr2='String Normal'>Olá mundo2!</Heading>
+        <Heading>Olá mundo3!</Heading>
         <p>meu primeiro parágrafo.</p>
       </section>
     </>

@@ -10,6 +10,7 @@ import { Cycle } from './components/cycle/Cycle';
 import { DefaultButton } from './components/button/DefaultButton';
 import { Footer } from './components/footer/Footer';
 import { PlayCircleIcon, StopCircleIcon } from 'lucide-react';
+import { MainForm } from './components/main-form/MainForm';
 
 function App() {
 
@@ -29,34 +30,7 @@ function App() {
       </Container>
 
       <Container>
-        <form className='form' action="">
-          <div className='formControl'>
-
-            <InputDefault
-              id='input'
-              type='text'
-              labelText='LabelText'
-              placeholder='Digite algo'
-            />
-          </div>
-
-          <div className='formControl'>
-            <p>Lorem ipsum dolor sit amet.</p>
-          </div>
-
-          <div className='formControl'>
-            <Cycle />
-          </div>
-
-          <div className='formControl'>
-            <DefaultButton color='green' icon={<PlayCircleIcon />} />
-          </div>
-
-          <div className='formControl'>
-            <Footer />
-          </div>
-
-        </form>
+        <MainForm />
       </Container>
 
     </>

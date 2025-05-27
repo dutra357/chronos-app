@@ -1,28 +1,41 @@
 import { useState, useEffect } from 'react';
 import styles from './Menu.module.css';
-import { HistoryIcon, HouseIcon, SettingsIcon, SunIcon } from 'lucide-react';
+import { HistoryIcon, HouseIcon, MoonIcon, SettingsIcon, SunIcon } from 'lucide-react';
 
 
 type AvailableThemes = 'dark' | 'light';
 
 export function Menu() {
 
-    const [theme, setTheme] = useState<AvailableThemes>('dark');
+    const [theme, setTheme] = useState<AvailableThemes>(
+        // Lazy initialization
+        () => {
+        const storedTheme = localStorage.getItem('theme') as AvailableThemes;
+        return storedTheme || 'dark';
+    });
 
     function toggleTheme(event: React.MouseEvent) {
         event.preventDefault();
         setTheme(theme === 'dark' ? 'light' : 'dark');
     }
 
-    // Com array cheio. Sempre que mudar o valor de 'theme'.
     useEffect(() => {
         document.documentElement.setAttribute('data-theme', theme);
-        console.log(theme);
+        localStorage.setItem('theme', theme);
+
+        // Cleanup function
+        return () => {};
     }, [theme]);
+
+    const nextThemeIcon = {
+        dark: <SunIcon />,
+        light: <MoonIcon />
+    };
+
 
     return (
         <nav className={styles.menu}>
-            <h1>{theme}</h1>
+           
             <a className={styles.menuLink}
                 href='#' aria-label='Ir para Home' title='Ir para a Home'><HouseIcon /></a>
 
@@ -33,7 +46,8 @@ export function Menu() {
                 href='#' aria-label='Configurações' title='Configurações'><SettingsIcon /></a>
 
             <a className={styles.menuLink} onClick={toggleTheme}
-                href='#' aria-label='Alterar tema claro/escuro' title='Alterar tema claro/escuro'><SunIcon /></a>
+                href='#' aria-label='Alterar tema claro/escuro'
+                 title='Alterar tema claro/escuro'> {nextThemeIcon[theme]} </a>
         </nav>
     );
 }

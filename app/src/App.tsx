@@ -5,6 +5,7 @@ import { Menu } from './components/menu/Menu';
 import { Container } from './components/container/Container';
 import { Logo } from './components/logo/Logo';
 import { Count } from './components/count/Count';
+import { InputDefault } from './components/input/InputDefault';
 
 
 function App() {
@@ -26,8 +27,7 @@ function App() {
       <Container>
         <form className='form' action="">
           <div className='formControl'>
-            <label htmlFor='input'>task</label>
-            <input type='text' id='input' />
+            <InputDefault id='input' type='' />
           </div>
 
           <div className='formControl'>

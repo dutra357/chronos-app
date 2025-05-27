@@ -7,7 +7,7 @@ export function Footer() {
 
                 Made with ❤️ by{' '}
 
-                <a href="#" target="_blank">
+                <a href="https://brasilescola.uol.com.br/dicas-de-estudo/tecnica-pomodoro-que-e-e-como-funciona.htm" target="_blank">
                     Leia mais sobre a técnica pomodoro.
                 </a>
 

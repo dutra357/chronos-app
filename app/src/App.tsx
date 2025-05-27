@@ -11,11 +11,11 @@ import { DefaultButton } from './components/button/DefaultButton';
 import { Footer } from './components/footer/Footer';
 import { PlayCircleIcon, StopCircleIcon } from 'lucide-react';
 
-
 function App() {
 
   return (
     <>
+      
       <Container>
         <Logo />
       </Container>
@@ -35,7 +35,7 @@ function App() {
             <InputDefault
               id='input'
               type='text'
-              labelText='labelText'
+              labelText='LabelText'
               placeholder='Digite algo'
             />
           </div>

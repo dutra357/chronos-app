@@ -7,6 +7,8 @@ import { Logo } from './components/logo/Logo';
 import { Count } from './components/count/Count';
 import { InputDefault } from './components/input/InputDefault';
 import { Cycle } from './components/cycle/Cycle';
+import { DefaultButton } from './components/button/DefaultButton';
+import { PlayCircleIcon, StopCircleIcon } from 'lucide-react';
 
 
 function App() {
@@ -46,8 +48,10 @@ function App() {
           </div>
 
           <div className='formControl'>
-            <button>enviar</button>
+            <DefaultButton color='green' icon={<PlayCircleIcon />} />
+            <DefaultButton color='red' icon={<StopCircleIcon />} />
           </div>
+
         </form>
       </Container>
 

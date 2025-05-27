@@ -1,0 +1,14 @@
+.cycle {
+
+}
+
+.cycleDots {
+    display: flex;
+}
+
+.cycleDot {
+    width: 2rem;
+    height: 2rem;
+    background-color: var(--primary);
+    border-radius: 50%;
+}

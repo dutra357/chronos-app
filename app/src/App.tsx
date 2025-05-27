@@ -6,6 +6,7 @@ import { Container } from './components/container/Container';
 import { Logo } from './components/logo/Logo';
 import { Count } from './components/count/Count';
 import { InputDefault } from './components/input/InputDefault';
+import { Cycle } from './components/cycle/Cycle';
 
 
 function App() {
@@ -27,7 +28,13 @@ function App() {
       <Container>
         <form className='form' action="">
           <div className='formControl'>
-            <InputDefault id='input' type='' />
+
+            <InputDefault
+              id='input'
+              type='text'
+              labelText='labelText'
+              placeholder='Digite algo'
+            />
           </div>
 
           <div className='formControl'>
@@ -35,8 +42,7 @@ function App() {
           </div>
 
           <div className='formControl'>
-            <p>Ciclos</p>
-            <p> 0 0 0 0 0 0 0</p>
+            <Cycle />
           </div>
 
           <div className='formControl'>

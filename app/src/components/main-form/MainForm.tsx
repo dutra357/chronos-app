@@ -1,4 +1,3 @@
-import { Footer } from '../footer/Footer';
 import { InputDefault } from '../input/InputDefault';
 import { DefaultButton } from '../button/DefaultButton';
 import { Cycle } from '../cycle/Cycle';
@@ -29,10 +28,6 @@ export function MainForm() {
     
               <div className='formControl'>
                 <DefaultButton color='green' icon={<PlayCircleIcon />} />
-              </div>
-    
-              <div className='formControl'>
-                <Footer />
               </div>
               
             </form>

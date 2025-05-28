@@ -1,10 +1,16 @@
+import { Footer } from '../footer/Footer';
+import { InputDefault } from '../input/InputDefault';
+import { DefaultButton } from '../button/DefaultButton';
+import { Cycle } from '../cycle/Cycle';
+import { PlayCircleIcon } from 'lucide-react';
+
 
 export function MainForm() {
   return (
 
             <form className='form' action="">
+
               <div className='formControl'>
-    
                 <InputDefault
                   id='input'
                   type='text'
@@ -28,7 +34,7 @@ export function MainForm() {
               <div className='formControl'>
                 <Footer />
               </div>
-    
+              
             </form>
             
   )

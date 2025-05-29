@@ -2,7 +2,7 @@ import type { TaskStateModel } from "./TaskStateModel";
 
 export type TaskModel = {
     id: string;
-    title: string;
+    name: string;
     duration: number;
 
     startedAt: number;

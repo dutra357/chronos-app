@@ -5,8 +5,9 @@ import { PlayCircleIcon } from 'lucide-react';
 import { useRef, useState } from 'react';
 import type { TaskModel } from '../../models/TaskModel';
 import { useTaskContext } from '../../contexts/TaskContext/UseTaskContext';
-import { getNextCyle } from '../../utils/GetNexCycle';
+import { getNextCycle } from '../../utils/GetNexCycle';
 import { getNextCycleType } from '../../utils/GetNextCycleType';
+import { formatSecondsToMinutes } from '../../utils/formatSecondsToMinutes';
 
 export function MainForm() {
 
@@ -15,7 +16,7 @@ export function MainForm() {
   const { state, setState } = useTaskContext();
 
   //Ciclos
-  const nextCyclo = getNextCyle(state.currentCycle);
+  const nextCyclo = getNextCycle(state.currentCycle);
   const nextCycloType = getNextCycleType(nextCyclo);
 
   function handleStartNewTask(e: React.FormEvent<HTMLFormElement>) {
@@ -36,7 +37,7 @@ export function MainForm() {
       startedAt: Date.now(),
       completedAt: null,
       interruptedAt: null,
-      duration: 1,
+      duration: state.config[nextCycloType],
       type: nextCycloType
     }
 
@@ -48,7 +49,7 @@ export function MainForm() {
         activeTask: newTask,
         currentCycle: nextCyclo,
         secondsRemaining: timeRemaining,
-        formattedSecondsRemainig: "00:00", //Conferir
+        formattedSecondsRemainig: formatSecondsToMinutes(timeRemaining),
         tasks: [...prevState.tasks, newTask]
       }
     });
@@ -75,12 +76,16 @@ export function MainForm() {
       </div>
 
       <div className='formControl'>
-        <p>Lorem ipsum dolor sit amet.</p>
+        <p>O próximo intervalo é de 25min.</p>
       </div>
 
-      <div className='formControl'>
-        <Cycle />
-      </div>
+      {state.currentCycle > 0 && (
+
+        <div className='formControl'>
+          <Cycle />
+        </div>
+
+      )}
 
       <div className='formControl'>
         <DefaultButton color='green' icon={<PlayCircleIcon />} />

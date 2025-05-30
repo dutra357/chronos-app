@@ -1,7 +1,7 @@
 import { InputDefault } from '../input/InputDefault';
 import { DefaultButton } from '../button/DefaultButton';
 import { Cycle } from '../cycle/Cycle';
-import { PlayCircleIcon } from 'lucide-react';
+import { PlayCircleIcon, StopCircle, StopCircleIcon } from 'lucide-react';
 import { useRef, useState } from 'react';
 import type { TaskModel } from '../../models/TaskModel';
 import { useTaskContext } from '../../contexts/TaskContext/UseTaskContext';
@@ -53,8 +53,27 @@ export function MainForm() {
         tasks: [...prevState.tasks, newTask]
       }
     });
+  }
 
 
+  function handleStopTask() {
+    setState((prevState) => {
+      return {
+        ...prevState,
+        activeTask: null,
+        secondsRemaining: 0,
+        formattedSecondsRemainig: '00:00',
+        tasks: prevState.tasks.map((task) => {
+          if (prevState.activeTask && prevState.activeTask.id === task.id) {
+            return {
+              ...task,
+              interruptedAt: Date.now()
+            }
+          }
+          return task;
+        })
+      }
+    });
   }
 
   return (
@@ -67,6 +86,7 @@ export function MainForm() {
           type='text'
           labelText='LabelText'
           placeholder='Digite algo'
+          disabled={!!state.activeTask}
 
           ref={taskNameInput}
         // Forma CONTROLADA do input, renderiza novamente
@@ -88,7 +108,24 @@ export function MainForm() {
       )}
 
       <div className='formControl'>
-        <DefaultButton color='green' icon={<PlayCircleIcon />} />
+
+        {!state.activeTask ?
+          (
+            <DefaultButton
+              key='startTask'
+              aria-label='Iniciar nova tarefa'
+              title='Iniciar nova tarefa'
+              type='submit' color='green'
+              icon={<PlayCircleIcon />} />
+          ) : (
+            <DefaultButton
+              key='stopTask'
+              aria-label='Interroper tarefa corrente'
+              title='Interroper tarefa corrente'
+              type='button' color='red'
+              icon={<StopCircleIcon />} onClick={handleStopTask} />
+          )}
+
       </div>
 
     </form>

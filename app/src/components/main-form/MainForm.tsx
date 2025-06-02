@@ -9,6 +9,7 @@ import { getNextCycle } from '../../utils/GetNexCycle';
 import { getNextCycleType } from '../../utils/GetNextCycleType';
 import { TaskActionTypes } from '../../contexts/TaskContext/TaskActionsTypes';
 import { Tips } from '../tips/Tips';
+import { TimerWorkerManager } from '../../workers/TimeWorkerManager';
 
 export function MainForm() {
 
@@ -43,6 +44,12 @@ export function MainForm() {
 
     dispatchAction({ type: TaskActionTypes.START_TASK, payload: newTask });
 
+    const worker = TimerWorkerManager.getInstance();
+
+    worker.onmessage(event => {
+      console.log(event.data);
+      worker.terminate;
+    });
   }
 
 

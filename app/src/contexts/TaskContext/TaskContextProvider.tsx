@@ -1,7 +1,8 @@
-import { useEffect, useReducer } from "react";
+import { useEffect, useMemo, useReducer } from "react";
 import { initialTaskState } from "./InitialTaskState";
 import { TaskContext } from "./TaskContext";
 import { TaskReducer } from "./TaskReduce";
+import { TimerWorkerManager } from "../../workers/TimeWorkerManager";
 
 
 type TypeContextProviderProps = {
@@ -9,13 +10,24 @@ type TypeContextProviderProps = {
 }
 
 export function TaskContextProvider({ children }: TypeContextProviderProps) {
+    
     const [state, dispatchAction] = useReducer(TaskReducer, initialTaskState);
+    
+    const worker = useMemo(() => TimerWorkerManager.getInstance(), []);
 
-    //Apenas ilustração.
+    worker.onmessage(event => {
+        console.log(event.data);
+    });
+
     //Monitorar um estado em tempo real
     useEffect(() => {
-        console.log('state', state);
-    }, [state]);
+        if (!state.activeTask) {
+            console.log("Worker terminado por falta de task!");
+            worker.terminate();
+        }
+
+        worker.postMessage(state);
+    }, [worker, state]);
 
     return (
         <TaskContext.Provider value={{ state, dispatchAction }}>

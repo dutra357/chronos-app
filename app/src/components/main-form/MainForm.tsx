@@ -10,6 +10,7 @@ import { getNextCycleType } from '../../utils/GetNextCycleType';
 import { TaskActionTypes } from '../../contexts/TaskContext/TaskActionsTypes';
 import { Tips } from '../tips/Tips';
 import { TimerWorkerManager } from '../../workers/TimeWorkerManager';
+import { showMessage } from '../../adapters/ToastfyAdapter';
 
 export function MainForm() {
 
@@ -28,7 +29,7 @@ export function MainForm() {
     const taskName = taskNameInput.current.value.trim();
 
     if (!taskName) {
-      alert('Digite o nome da tarefa.');
+      showMessage.warning('Digite o nome da tarefa.');
       return;
     }
 

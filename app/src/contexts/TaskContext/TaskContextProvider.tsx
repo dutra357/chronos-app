@@ -1,9 +1,10 @@
-import { useEffect, useMemo, useReducer } from "react";
+import { useEffect, useMemo, useReducer, useRef } from "react";
 import { initialTaskState } from "./InitialTaskState";
 import { TaskContext } from "./TaskContext";
 import { TaskReducer } from "./TaskReduce";
 import { TimerWorkerManager } from "../../workers/TimeWorkerManager";
 import { TaskActionTypes } from "./TaskActionsTypes";
+import { loadBeep } from "../../utils/loadBeepSafari";
 
 
 type TypeContextProviderProps = {
@@ -13,13 +14,18 @@ type TypeContextProviderProps = {
 export function TaskContextProvider({ children }: TypeContextProviderProps) {
 
     const [state, dispatchAction] = useReducer(TaskReducer, initialTaskState);
-
+    const playBeepRef = useRef<() => void | null>(null);
     const worker = TimerWorkerManager.getInstance();
 
     worker.onmessage(event => {
         const counterSeconds = event.data;
 
         if (counterSeconds <= 0) {
+            if (playBeepRef.current) {
+                playBeepRef.current();
+                playBeepRef.current = null;
+            }
+
             dispatchAction({ type: TaskActionTypes.COMPLETE_TASK });
         } else {
             dispatchAction(
@@ -30,6 +36,15 @@ export function TaskContextProvider({ children }: TypeContextProviderProps) {
             );
         }
     });
+
+    useEffect(() => {
+        if (state.activeTask && playBeepRef.current === null) {
+            playBeepRef.current = loadBeep();
+        } else {
+            playBeepRef.current = null;
+        }
+
+    }, [state.activeTask]);
 
     //Monitorar um estado em tempo real
     useEffect(() => {

@@ -1,4 +1,4 @@
-import gravitationalBeep from '.\assets\audios\gravitational_beep.mp3'
+import gravitationalBeep from '../../src/assets/audios/gravitational_beep.mp3'
 
 // Arrannjo técnico para o Safari
 export function loadBeep() {

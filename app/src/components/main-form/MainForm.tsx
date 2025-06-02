@@ -1,19 +1,18 @@
 import { InputDefault } from '../input/InputDefault';
 import { DefaultButton } from '../button/DefaultButton';
 import { Cycle } from '../cycle/Cycle';
-import { PlayCircleIcon, StopCircle, StopCircleIcon } from 'lucide-react';
-import { useRef, useState } from 'react';
+import { PlayCircleIcon, StopCircleIcon } from 'lucide-react';
+import { useRef } from 'react';
 import type { TaskModel } from '../../models/TaskModel';
 import { useTaskContext } from '../../contexts/TaskContext/UseTaskContext';
 import { getNextCycle } from '../../utils/GetNexCycle';
 import { getNextCycleType } from '../../utils/GetNextCycleType';
-import { formatSecondsToMinutes } from '../../utils/formatSecondsToMinutes';
+import { TaskActionTypes } from '../../contexts/TaskContext/TaskActionsTypes';
 
 export function MainForm() {
 
-  const [taskName, setTaskName] = useState('');
   const taskNameInput = useRef<HTMLInputElement>(null);
-  const { state, setState } = useTaskContext();
+  const { state, dispatchAction } = useTaskContext();
 
   //Ciclos
   const nextCyclo = getNextCycle(state.currentCycle);
@@ -41,39 +40,13 @@ export function MainForm() {
       type: nextCycloType
     }
 
-    const timeRemaining = newTask.duration * 60;
+    dispatchAction({ type: TaskActionTypes.START_TASK, payload: newTask });
 
-    setState((prevState) => {
-      return {
-        config: { ...prevState.config },
-        activeTask: newTask,
-        currentCycle: nextCyclo,
-        secondsRemaining: timeRemaining,
-        formattedSecondsRemainig: formatSecondsToMinutes(timeRemaining),
-        tasks: [...prevState.tasks, newTask]
-      }
-    });
   }
 
 
   function handleStopTask() {
-    setState((prevState) => {
-      return {
-        ...prevState,
-        activeTask: null,
-        secondsRemaining: 0,
-        formattedSecondsRemainig: '00:00',
-        tasks: prevState.tasks.map((task) => {
-          if (prevState.activeTask && prevState.activeTask.id === task.id) {
-            return {
-              ...task,
-              interruptedAt: Date.now()
-            }
-          }
-          return task;
-        })
-      }
-    });
+    dispatchAction({ type: TaskActionTypes.STOP_TASK });
   }
 
   return (

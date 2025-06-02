@@ -1,4 +1,4 @@
-import { useEffect, useReducer, useState } from "react";
+import { useEffect, useReducer } from "react";
 import { initialTaskState } from "./InitialTaskState";
 import { TaskContext } from "./TaskContext";
 import { TaskReducer } from "./TaskReduce";
@@ -9,7 +9,7 @@ type TypeContextProviderProps = {
 }
 
 export function TaskContextProvider({ children }: TypeContextProviderProps) {
-    const [state, setState] = useState(initialTaskState);
+    const [state, dispatchAction] = useReducer(TaskReducer, initialTaskState);
 
     //Apenas ilustração.
     //Monitorar um estado em tempo real
@@ -18,7 +18,7 @@ export function TaskContextProvider({ children }: TypeContextProviderProps) {
     }, [state]);
 
     return (
-        <TaskContext.Provider value={{ state, setState }}>
+        <TaskContext.Provider value={{ state, dispatchAction }}>
             {children}
         </TaskContext.Provider>
     )

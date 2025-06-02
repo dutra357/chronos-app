@@ -23,6 +23,8 @@ export function MainForm() {
 
   function handleStartNewTask(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    //Limpar os toasts
+    showMessage.dismiss();
 
     if (taskNameInput.current === null) return;
 

@@ -1,4 +1,5 @@
 import styles from './Footer.module.css';
+import { Link } from 'react-router';
 
 export function Footer() {
     return (
@@ -7,13 +8,13 @@ export function Footer() {
 
                 Made with ❤️ by{' '}
 
-                <a href="https://brasilescola.uol.com.br/dicas-de-estudo/tecnica-pomodoro-que-e-e-como-funciona.htm" target="_blank">
+                <Link to="/about-pomodoro" target="_blank">
                     Leia mais sobre a técnica pomodoro.
-                </a>
+                </Link>
 
-                <a href="#" target="_blank">
+                <Link to="/" target="_blank">
                     Pomodoro-app &copy; { new Date().getFullYear() }
-                </a>
+                </Link>
 
         </footer>
 

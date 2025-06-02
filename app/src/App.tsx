@@ -3,7 +3,10 @@ import './styles/theme.css'
 
 import { Home } from './components/pages/home/Home';
 import { TaskContextProvider } from './contexts/TaskContext/TaskContextProvider';
-import { ToastContainer, Bounce } from 'react-toastify';
+import { MessagesContainer } from './components/msg-container/MessagesContainer';
+import { BrowserRouter, Routes, Route } from 'react-router';
+import { NotFound } from './components/notfound/NotFound';
+import { About } from './components/about/About';
 
 
 function App() {
@@ -11,22 +14,18 @@ function App() {
   return (
 
     <TaskContextProvider>
+      <MessagesContainer>
 
-      <ToastContainer
-        position="top-center"
-        autoClose={3000}
-        hideProgressBar={false}
-        newestOnTop={true}
-        closeOnClick={true}
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-        transition={Bounce}
-      />
+        <BrowserRouter>
+          <Routes>
+            <Route path='/' element={ <Home /> } />
+            <Route path='/about-pomodoro' element={ <About /> } />
 
-      <Home />
+            <Route path='*' element={ <NotFound /> } />
+          </Routes>
+        </BrowserRouter>
+
+      </MessagesContainer>
     </TaskContextProvider>
   )
 };

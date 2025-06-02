@@ -8,6 +8,6 @@ export const showMessage = {
     info: (msg: string) => toast.info(msg),
     warning: (msg: string) => toast.warning(msg),
 
-    dark: (msg: string) => toast.dark(msg),
-    light: (msg: string) => toast.loading(msg)
+    dismiss: () => toast.dismiss(),
+    default: (msg: string) => toast(msg)
 }

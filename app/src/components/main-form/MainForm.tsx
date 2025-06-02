@@ -8,6 +8,7 @@ import { useTaskContext } from '../../contexts/TaskContext/UseTaskContext';
 import { getNextCycle } from '../../utils/GetNexCycle';
 import { getNextCycleType } from '../../utils/GetNextCycleType';
 import { TaskActionTypes } from '../../contexts/TaskContext/TaskActionsTypes';
+import { Tips } from '../tips/Tips';
 
 export function MainForm() {
 
@@ -69,7 +70,7 @@ export function MainForm() {
       </div>
 
       <div className='formControl'>
-        <p>O próximo intervalo é de 25min.</p>
+        <Tips nextCycloType={nextCycloType} />
       </div>
 
       {state.currentCycle > 0 && (

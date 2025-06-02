@@ -1,23 +1,25 @@
 let isRunning = false;
 
-self.onmessage = function(event) {
+self.onmessage = function (event) {
     if (isRunning) return;
 
     isRunning = true;
 
     const state = event.data;
-    const {activeTask, secondRemaining} = state;
+    const { activeTask, secondsRemaining } = state;
 
-    const endDate = activeTask.startDate + secondRemaining * 1000;
+    const endDate = activeTask.startedAt + secondsRemaining * 1000;
 
+    const now = Date.now();
+    let counter = Math.ceil((endDate - now) / 1000);
+    
     function ticTac() {
-        const now = Date.now();
-        const secondRemaining = Math.round((endDate - now) / 1000);
-        self.postMessage({secondRemaining});
+        self.postMessage(counter);
 
-        if (secondRemaining <= 0) {
-            clearInterval(intervalId);
-            self.postMessage({completed: true});
-        }
+        const now = Date.now();
+        counter = Math.floor((endDate - now) / 1000);
+        setTimeout(ticTac, 1000);
     }
-}
+
+    ticTac();
+};

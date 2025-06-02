@@ -47,8 +47,7 @@ export function MainForm() {
     const worker = TimerWorkerManager.getInstance();
 
     worker.onmessage(event => {
-      console.log(event.data);
-      worker.terminate;
+      worker.terminate();
     });
   }
 
@@ -70,9 +69,6 @@ export function MainForm() {
           disabled={!!state.activeTask}
 
           ref={taskNameInput}
-        // Forma CONTROLADA do input, renderiza novamente
-        // value={taskName}
-        // onChange={(e) => setTaskName(e.target.value)}
         />
       </div>
 

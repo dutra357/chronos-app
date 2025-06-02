@@ -11,20 +11,24 @@ type TypeContextProviderProps = {
 }
 
 export function TaskContextProvider({ children }: TypeContextProviderProps) {
-    
+
     const [state, dispatchAction] = useReducer(TaskReducer, initialTaskState);
-    
+
     const worker = TimerWorkerManager.getInstance();
 
     worker.onmessage(event => {
         const counterSeconds = event.data;
 
-        dispatchAction({ type: TaskActionTypes.COUNT_DOWN, payload: { secondsRemaining: counterSeconds } });
-
         if (counterSeconds <= 0) {
-            console.log("Worker COMPLETED!");
-            worker.terminate();
-        };
+            dispatchAction({ type: TaskActionTypes.COMPLETE_TASK });
+        } else {
+            dispatchAction(
+                {
+                    type: TaskActionTypes.COUNT_DOWN,
+                    payload: { secondsRemaining: counterSeconds }
+                }
+            );
+        }
     });
 
     //Monitorar um estado em tempo real

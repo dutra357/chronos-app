@@ -7,6 +7,7 @@ import { TrashIcon } from 'lucide-react';
 import styles from './History.module.css';
 import { useTaskContext } from '../../../contexts/TaskContext/UseTaskContext';
 import { formatDate } from '../../../utils/FormatDate';
+import { getTaskStatus } from '../../../utils/GetTaskStatus';
 
 
 export function History() {
@@ -51,7 +52,7 @@ export function History() {
                                         <td>{task.name}</td>
                                         <td>{task.duration} min</td>
                                         <td>{formatDate(task.startedAt)}</td>
-                                        <td>{task.interruptedAt}</td>
+                                        <td>{getTaskStatus(task, state.activeTask)}</td>
                                         <td>{task.type}</td>
                                     </tr>
                                 )

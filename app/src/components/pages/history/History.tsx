@@ -12,7 +12,10 @@ import { getTaskStatus } from '../../../utils/GetTaskStatus';
 
 export function History() {
 
-    const {state} = useTaskContext();
+    const { state } = useTaskContext();
+
+    const sortedTasks = [...state.tasks]
+        .sort((a, b) => b.startedAt - a.startedAt);
 
     return (
         <MainTemplate>
@@ -46,14 +49,20 @@ export function History() {
                         </thead>
 
                         <tbody>
-                            {state.tasks.map((task) => {
+                            {sortedTasks.map((task) => {
+                                const taskTypeMap = {
+                                    workTime: 'Foco',
+                                    shortBreakTime: 'Descanso curto',
+                                    longBreakTime: 'Descanso longo',
+                                }
+
                                 return (
                                     <tr key={task.id}>
                                         <td>{task.name}</td>
                                         <td>{task.duration} min</td>
                                         <td>{formatDate(task.startedAt)}</td>
                                         <td>{getTaskStatus(task, state.activeTask)}</td>
-                                        <td>{task.type}</td>
+                                        <td>{taskTypeMap[task.type]}</td>
                                     </tr>
                                 )
                             })}

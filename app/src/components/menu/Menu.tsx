@@ -40,7 +40,7 @@ export function Menu() {
                 href='/' aria-label='Ir para Home' title='Ir para a Home'><HouseIcon /></RouterLink>
 
             <RouterLink className={styles.menuLink}
-                href='#' aria-label='Ver histórico' title='Ver histórico'><HistoryIcon /></RouterLink>
+                href='/history' aria-label='Ver histórico' title='Ver histórico'><HistoryIcon /></RouterLink>
 
             <RouterLink className={styles.menuLink}
                 href='#' aria-label='Configurações' title='Configurações'><SettingsIcon /></RouterLink>

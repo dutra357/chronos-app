@@ -16,6 +16,7 @@ export function MainForm() {
 
   const taskNameInput = useRef<HTMLInputElement>(null);
   const { state, dispatchAction } = useTaskContext();
+  const lastTaskName = state.tasks[state.tasks.length - 1]?.name || '';
 
   //Ciclos
   const nextCyclo = getNextCycle(state.currentCycle);
@@ -72,6 +73,7 @@ export function MainForm() {
           disabled={!!state.activeTask}
 
           ref={taskNameInput}
+          defaultValue={lastTaskName}
         />
       </div>
 

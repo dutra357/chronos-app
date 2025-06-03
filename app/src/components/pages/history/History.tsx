@@ -8,13 +8,14 @@ import styles from './History.module.css';
 import { useTaskContext } from '../../../contexts/TaskContext/UseTaskContext';
 import { formatDate } from '../../../utils/FormatDate';
 import { getTaskStatus } from '../../../utils/GetTaskStatus';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { sortTasks, type SortTasksOptions } from '../../../utils/SortTasks';
+import { TaskActionTypes } from '../../../contexts/TaskContext/TaskActionsTypes';
 
 
 export function History() {
 
-    const { state } = useTaskContext();
+    const { state, dispatchAction } = useTaskContext();
 
     const [sortTaskOptions, setSortTaskOptions] = useState<SortTasksOptions>(() => {
         return {
@@ -24,9 +25,20 @@ export function History() {
         }
     });
 
+    //Zerando o estado reordena conforme as opções
+    useEffect(() => {
+        setSortTaskOptions(prevState => ({
+            ...prevState,
+            tasks: sortTasks({
+                tasks: state.tasks,
+                direction: prevState.direction,
+                field: prevState.field
+            }),
+        }));
+    }, [state.tasks]);
+
     function handleSort({ field }: Pick<SortTasksOptions, 'field'>) {
         const newDirection = sortTaskOptions.direction === 'asc' ? 'desc' : 'asc';
-
         setSortTaskOptions({
             tasks: sortTasks({
                 direction: newDirection,
@@ -39,6 +51,13 @@ export function History() {
         })
     }
 
+    function resetTasksHistory() {
+        if (!confirm('Deseja realmente apagar todo o histórico?')) return;
+        dispatchAction({ type: TaskActionTypes.RESET_TASK });
+        localStorage.removeItem('tasks');
+        window.location.reload();
+    }
+
 
     return (
         <MainTemplate>
@@ -49,6 +68,7 @@ export function History() {
 
                     <span className={styles.buttonContainer}>
                         <DefaultButton
+                            onClick={resetTasksHistory}
                             aria-label='Apagar todo o histórico'
                             title='Apagar todo o histórico'
                             icon={<TrashIcon />}
@@ -59,6 +79,7 @@ export function History() {
             </Container>
 
             <Container>
+
                 <div className={styles.responsiveTable}>
                     <table>
                         <thead>

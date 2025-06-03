@@ -6,7 +6,7 @@ export function Footer() {
 
         <footer className={styles.footer}>
 
-                Made with ❤️ by{'Dutra'}
+                Made by {'Dutra'}
 
                 <RouterLink href="/about-pomodoro">
                     Leia mais sobre a técnica pomodoro.

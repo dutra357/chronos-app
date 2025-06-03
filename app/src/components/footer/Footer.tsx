@@ -1,20 +1,20 @@
 import styles from './Footer.module.css';
-import { Link } from 'react-router';
+import { RouterLink } from '../router-link/RouterLink';
 
 export function Footer() {
     return (
 
         <footer className={styles.footer}>
 
-                Made with ❤️ by{' '}
+                Made with ❤️ by{'Dutra'}
 
-                <Link to="/about-pomodoro" target="_blank">
+                <RouterLink href="/about-pomodoro">
                     Leia mais sobre a técnica pomodoro.
-                </Link>
+                </RouterLink>
 
-                <Link to="/" target="_blank">
+                <RouterLink href="/">
                     Pomodoro-app &copy; { new Date().getFullYear() }
-                </Link>
+                </RouterLink>
 
         </footer>
 

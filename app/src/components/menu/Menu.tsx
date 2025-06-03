@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import styles from './Menu.module.css';
 import { HistoryIcon, HouseIcon, MoonIcon, SettingsIcon, SunIcon } from 'lucide-react';
-import { Link } from 'react-router';
+import { RouterLink } from '../router-link/RouterLink';
 
 type AvailableThemes = 'dark' | 'light';
 
@@ -36,18 +36,18 @@ export function Menu() {
     return (
         <nav className={styles.menu}>
            
-            <Link className={styles.menuLink}
-                to='/' aria-label='Ir para Home' title='Ir para a Home'><HouseIcon /></Link>
+            <RouterLink className={styles.menuLink}
+                href='/' aria-label='Ir para Home' title='Ir para a Home'><HouseIcon /></RouterLink>
 
-            <a className={styles.menuLink}
-                href='#' aria-label='Ver histórico' title='Ver histórico'><HistoryIcon /></a>
+            <RouterLink className={styles.menuLink}
+                href='#' aria-label='Ver histórico' title='Ver histórico'><HistoryIcon /></RouterLink>
 
-            <a className={styles.menuLink}
-                href='#' aria-label='Configurações' title='Configurações'><SettingsIcon /></a>
+            <RouterLink className={styles.menuLink}
+                href='#' aria-label='Configurações' title='Configurações'><SettingsIcon /></RouterLink>
 
-            <a className={styles.menuLink} onClick={toggleTheme}
+            <RouterLink className={styles.menuLink} onClick={toggleTheme}
                 href='#' aria-label='Alterar tema claro/escuro'
-                 title='Alterar tema claro/escuro'> {nextThemeIcon[theme]} </a>
+                 title='Alterar tema claro/escuro'> {nextThemeIcon[theme]} </RouterLink>
         </nav>
     );
 }

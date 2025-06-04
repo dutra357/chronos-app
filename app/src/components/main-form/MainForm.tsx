@@ -68,7 +68,7 @@ export function MainForm() {
         <InputDefault
           id='input'
           type='text'
-          labelText='LabelText'
+          labelText='Label Text'
           placeholder='Digite algo'
           disabled={!!state.activeTask}
 

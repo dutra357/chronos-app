@@ -43,7 +43,7 @@ export function Menu() {
                 href='/history' aria-label='Ver histórico' title='Ver histórico'><HistoryIcon /></RouterLink>
 
             <RouterLink className={styles.menuLink}
-                href='#' aria-label='Configurações' title='Configurações'><SettingsIcon /></RouterLink>
+                href='/settings' aria-label='Configurações' title='Configurações'><SettingsIcon /></RouterLink>
 
             <RouterLink className={styles.menuLink} onClick={toggleTheme}
                 href='#' aria-label='Alterar tema claro/escuro'

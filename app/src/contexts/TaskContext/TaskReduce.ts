@@ -7,10 +7,12 @@ import { TaskActionTypes, type TaskActionModel } from "./TaskActionsTypes";
 export function TaskReducer(state: TaskStateModel, action: TaskActionModel) {
 
     switch (action.type) {
-        case TaskActionTypes.START_TASK:
+        case TaskActionTypes.START_TASK: {
+
             const newTask = action.payload;
             const nextCycle = getNextCycle(state.currentCycle);
             const secondsRemaining = newTask.duration * 60;
+
             return {
                 ...state,
                 activeTask: newTask,
@@ -19,6 +21,7 @@ export function TaskReducer(state: TaskStateModel, action: TaskActionModel) {
                 formattedSecondsRemainig: formatSecondsToMinutes(secondsRemaining),
                 tasks: [...state.tasks, newTask]
             };
+        }
 
         case TaskActionTypes.STOP_TASK:
             return {

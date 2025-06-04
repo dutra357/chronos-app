@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useReducer, useRef } from "react";
+import { useEffect, useReducer, useRef } from "react";
 import { initialTaskState } from "./InitialTaskState";
 import { TaskContext } from "./TaskContext";
 import { TaskReducer } from "./TaskReduce";
@@ -66,7 +66,6 @@ export function TaskContextProvider({ children }: TypeContextProviderProps) {
         localStorage.setItem('state', JSON.stringify(state))
 
         if (!state.activeTask) {
-            console.log("Worker terminado por inatividade!");
             worker.terminate();
         }
 

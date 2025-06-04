@@ -24,6 +24,7 @@ export function MainForm() {
 
   function handleStartNewTask(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+
     //Limpar os toasts
     showMessage.dismiss();
 
@@ -50,7 +51,7 @@ export function MainForm() {
 
     const worker = TimerWorkerManager.getInstance();
 
-    worker.onmessage(event => {
+    worker.onmessage(() => {
       worker.terminate();
     });
   }

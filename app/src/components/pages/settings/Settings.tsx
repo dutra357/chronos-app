@@ -10,7 +10,7 @@ import { showMessage } from "../../../adapters/ToastfyAdapter";
 
 export function Settings() {
 
-    const { state } = useTaskContext();
+    const { state, dispatchAction } = useTaskContext();
 
     const errors: string[] = [];
 
@@ -38,8 +38,8 @@ export function Settings() {
             errors.push('O tempo de descanso curto deve estar entre 1 e 15 minutos.');
         }
 
-        if (workTime < 1 || workTime > 20) {
-            errors.push('O tempo de foco deve estar entre 1 e 20 minutos.');
+        if (workTime < 1 || workTime > 25) {
+            errors.push('O tempo de foco deve estar entre 1 e 25 minutos.');
         }
 
         if (errors.length > 0) {
@@ -48,6 +48,17 @@ export function Settings() {
             });
             return;
         }
+
+        dispatchAction( {
+            type: 'CHANGE_SETTINGS',
+            payload: {
+                workTime,
+                shortBreakTime,
+                longBreakTime
+            }
+        } );
+
+        showMessage.success('Configurações salvas com sucesso!')
     }
 
     return (
@@ -73,10 +84,10 @@ export function Settings() {
                             labelText='Tempo de foco'
                             ref={workTimeInputRef}
                             defaultValue={state.config.workTime}
-                            type='number' 
+                            type='number'
                             min='1'
-                            max='20'
-                            step='1' 
+                            max='25'
+                            step='1'
                             maxLength={2} />
                     </div>
 
@@ -86,10 +97,10 @@ export function Settings() {
                             labelText='Configurar descanso curto'
                             ref={shortBreakTimeInputRef}
                             defaultValue={state.config.shortBreakTime}
-                            type='number' 
+                            type='number'
                             min='1'
                             max='15'
-                            step='1' 
+                            step='1'
                             maxLength={2} />
                     </div>
 
@@ -99,10 +110,10 @@ export function Settings() {
                             labelText='Configurar descanso longo'
                             ref={longBreakTimeInputRef}
                             defaultValue={state.config.longBreakTime}
-                            type='number' 
+                            type='number'
                             min='1'
                             max='30'
-                            step='1' 
+                            step='1'
                             maxLength={2} />
                     </div>
 
